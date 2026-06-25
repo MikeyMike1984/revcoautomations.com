@@ -1,0 +1,417 @@
+/* ============================================================
+   REVCO Design System — Colors & Typography
+   AI Infrastructure for Law Firms
+   ============================================================ */
+
+/* ---------- FONTS ---------- */
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter_18pt-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter_18pt-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter_18pt-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter_18pt-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+/* 24pt variants (larger display sizes) */
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter_24pt-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  size-adjust: 105%;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter_24pt-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter_24pt-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+/* 28pt variants (hero/display) */
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter_28pt-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter_28pt-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter_28pt-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+/* IBM Plex Mono — technical labels only */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('fonts/IBMPlexMono-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('fonts/IBMPlexMono-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('fonts/IBMPlexMono-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+:root {
+  /* ============================================================
+     COLOR PALETTE
+     ============================================================ */
+
+  /* --- Navy Scale (brand anchor) --- */
+  --navy-950: #0a0f1e;
+  --navy-900: #0f1729;
+  --navy-800: #152035;
+  --navy-700: #1a2744;
+  --navy-600: #1e3358;
+  --navy-500: #24406e;
+  --navy-400: #2d5490;
+
+  /* --- Blue Scale (brand accent) --- */
+  --blue-700: #1248a0;
+  --blue-600: #1557c0;
+  --blue-500: #1d6cd8;
+  --blue-400: #2d82f0;
+  --blue-300: #4e9af5;
+  --blue-200: #80bbf9;
+  --blue-100: #cce2fd;
+  --blue-50:  #eaf3fe;
+
+  /* --- Teal (logo gradient end) --- */
+  --teal-600: #0e7d7a;
+  --teal-500: #12a09c;
+  --teal-400: #18bfbb;
+  --teal-300: #40d4d0;
+
+  /* --- Neutral / Gray Scale --- */
+  --gray-950: #0c0e12;
+  --gray-900: #111318;
+  --gray-800: #1c1f26;
+  --gray-700: #272b35;
+  --gray-600: #363c4a;
+  --gray-500: #515868;
+  --gray-400: #717a8e;
+  --gray-300: #99a3b5;
+  --gray-200: #c5ccd8;
+  --gray-100: #e4e8ef;
+  --gray-50:  #f4f6f9;
+  --gray-0:   #ffffff;
+
+  /* --- Semantic Status Colors --- */
+  --status-success:     #1a7a4a;
+  --status-success-bg:  #edfaf3;
+  --status-success-mid: #2ea866;
+
+  --status-warning:     #8a5a00;
+  --status-warning-bg:  #fef8ec;
+  --status-warning-mid: #d4880a;
+
+  --status-error:       #b51c1c;
+  --status-error-bg:    #fef2f2;
+  --status-error-mid:   #e03030;
+
+  --status-info:        #1248a0;
+  --status-info-bg:     #eaf3fe;
+  --status-info-mid:    #1d6cd8;
+
+  --status-neutral:     #515868;
+  --status-neutral-bg:  #f4f6f9;
+
+  --status-privilege:   #6b2f8a;
+  --status-privilege-bg:#f7f0fd;
+  --status-privilege-mid:#9b45c8;
+
+  /* --- Semantic Surface Colors (Light Theme) --- */
+  --surface-base:       var(--gray-0);
+  --surface-raised:     var(--gray-50);
+  --surface-overlay:    var(--gray-100);
+  --surface-inset:      var(--gray-100);
+  --surface-brand:      var(--navy-700);
+  --surface-brand-deep: var(--navy-900);
+
+  /* --- Semantic Text Colors --- */
+  --fg-primary:         var(--navy-700);
+  --fg-secondary:       var(--gray-500);
+  --fg-tertiary:        var(--gray-400);
+  --fg-disabled:        var(--gray-300);
+  --fg-inverse:         var(--gray-0);
+  --fg-brand:           var(--blue-600);
+  --fg-link:            var(--blue-500);
+  --fg-link-hover:      var(--blue-400);
+
+  /* --- Semantic Border Colors --- */
+  --border-subtle:      var(--gray-100);
+  --border-default:     var(--gray-200);
+  --border-strong:      var(--gray-300);
+  --border-brand:       var(--blue-500);
+  --border-focus:       var(--blue-400);
+
+  /* --- Interactive States --- */
+  --btn-primary-bg:       var(--navy-700);
+  --btn-primary-hover:    var(--navy-600);
+  --btn-primary-active:   var(--navy-800);
+  --btn-primary-fg:       var(--gray-0);
+
+  --btn-secondary-bg:     transparent;
+  --btn-secondary-border: var(--navy-700);
+  --btn-secondary-fg:     var(--navy-700);
+  --btn-secondary-hover-bg: var(--gray-50);
+
+  --btn-accent-bg:        var(--blue-500);
+  --btn-accent-hover:     var(--blue-600);
+  --btn-accent-fg:        var(--gray-0);
+
+  /* ============================================================
+     TYPOGRAPHY SCALE
+     ============================================================ */
+
+  /* --- Font Families --- */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
+
+  /* --- Font Sizes --- */
+  --text-xs:   11px;
+  --text-sm:   13px;
+  --text-base: 15px;
+  --text-md:   16px;
+  --text-lg:   18px;
+  --text-xl:   20px;
+  --text-2xl:  24px;
+  --text-3xl:  28px;
+  --text-4xl:  34px;
+  --text-5xl:  42px;
+  --text-6xl:  52px;
+  --text-7xl:  64px;
+
+  /* --- Font Weights --- */
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+
+  /* --- Line Heights --- */
+  --leading-tight:  1.15;
+  --leading-snug:   1.25;
+  --leading-normal: 1.45;
+  --leading-relaxed:1.6;
+  --leading-loose:  1.75;
+
+  /* --- Letter Spacing --- */
+  --tracking-tight:  -0.02em;
+  --tracking-normal: -0.01em;
+  --tracking-wide:   0.02em;
+  --tracking-wider:  0.06em;
+  --tracking-widest: 0.12em;
+
+  /* ============================================================
+     SEMANTIC TYPE ROLES
+     ============================================================ */
+
+  /* Display / Hero */
+  --type-display-size:   var(--text-7xl);
+  --type-display-weight: var(--weight-bold);
+  --type-display-leading:var(--leading-tight);
+  --type-display-tracking:var(--tracking-tight);
+
+  /* Heading 1 */
+  --type-h1-size:   var(--text-5xl);
+  --type-h1-weight: var(--weight-bold);
+  --type-h1-leading:var(--leading-tight);
+  --type-h1-tracking:var(--tracking-tight);
+
+  /* Heading 2 */
+  --type-h2-size:   var(--text-4xl);
+  --type-h2-weight: var(--weight-semibold);
+  --type-h2-leading:var(--leading-snug);
+  --type-h2-tracking:var(--tracking-normal);
+
+  /* Heading 3 */
+  --type-h3-size:   var(--text-2xl);
+  --type-h3-weight: var(--weight-semibold);
+  --type-h3-leading:var(--leading-snug);
+
+  /* Heading 4 */
+  --type-h4-size:   var(--text-xl);
+  --type-h4-weight: var(--weight-semibold);
+  --type-h4-leading:var(--leading-snug);
+
+  /* Subheading / Label */
+  --type-label-size:    var(--text-xs);
+  --type-label-weight:  var(--weight-semibold);
+  --type-label-tracking:var(--tracking-widest);
+  --type-label-transform:uppercase;
+
+  /* Body */
+  --type-body-size:   var(--text-base);
+  --type-body-weight: var(--weight-regular);
+  --type-body-leading:var(--leading-relaxed);
+
+  /* Body small */
+  --type-body-sm-size:   var(--text-sm);
+  --type-body-sm-leading:var(--leading-relaxed);
+
+  /* UI labels */
+  --type-ui-size:   var(--text-sm);
+  --type-ui-weight: var(--weight-medium);
+
+  /* Mono — technical only */
+  --type-mono-size:   var(--text-sm);
+  --type-mono-weight: var(--weight-regular);
+
+  /* ============================================================
+     SPACING SYSTEM (8px base grid)
+     ============================================================ */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-32: 128px;
+  --space-40: 160px;
+
+  /* ============================================================
+     BORDER RADIUS
+     ============================================================ */
+  --radius-sm:   3px;
+  --radius-md:   6px;
+  --radius-lg:   10px;
+  --radius-xl:   14px;
+  --radius-2xl:  20px;
+  --radius-full: 9999px;
+
+  /* ============================================================
+     SHADOWS / ELEVATION
+     ============================================================ */
+  --shadow-xs:  0 1px 2px rgba(10, 15, 30, 0.06);
+  --shadow-sm:  0 1px 4px rgba(10, 15, 30, 0.08), 0 1px 2px rgba(10, 15, 30, 0.06);
+  --shadow-md:  0 4px 12px rgba(10, 15, 30, 0.10), 0 1px 3px rgba(10, 15, 30, 0.06);
+  --shadow-lg:  0 8px 24px rgba(10, 15, 30, 0.12), 0 2px 6px rgba(10, 15, 30, 0.06);
+  --shadow-xl:  0 16px 40px rgba(10, 15, 30, 0.14), 0 4px 12px rgba(10, 15, 30, 0.08);
+  --shadow-brand: 0 4px 16px rgba(29, 108, 216, 0.20);
+
+  /* ============================================================
+     LAYOUT GRID
+     ============================================================ */
+  --grid-cols-product: 12;
+  --grid-cols-marketing: 12;
+  --grid-gutter: 24px;
+  --grid-margin-sm: 24px;
+  --grid-margin-md: 40px;
+  --grid-margin-lg: 80px;
+  --grid-max-width: 1280px;
+  --grid-max-wide: 1440px;
+
+  /* ============================================================
+     TRANSITIONS
+     ============================================================ */
+  --transition-fast:   120ms ease;
+  --transition-base:   200ms ease;
+  --transition-slow:   350ms ease;
+  --transition-reveal: 500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ============================================================
+   SEMANTIC ELEMENT DEFAULTS
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-relaxed);
+  color: var(--fg-primary);
+  background: var(--surface-base);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1 {
+  font-size: var(--type-h1-size);
+  font-weight: var(--type-h1-weight);
+  line-height: var(--type-h1-leading);
+  letter-spacing: var(--type-h1-tracking);
+  color: var(--fg-primary);
+}
+h2 {
+  font-size: var(--type-h2-size);
+  font-weight: var(--type-h2-weight);
+  line-height: var(--type-h2-leading);
+  letter-spacing: var(--type-h2-tracking);
+  color: var(--fg-primary);
+}
+h3 {
+  font-size: var(--type-h3-size);
+  font-weight: var(--type-h3-weight);
+  line-height: var(--type-h3-leading);
+  color: var(--fg-primary);
+}
+h4 {
+  font-size: var(--type-h4-size);
+  font-weight: var(--type-h4-weight);
+  line-height: var(--type-h4-leading);
+  color: var(--fg-primary);
+}
+p {
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-leading);
+  color: var(--fg-secondary);
+}
+code, pre, .mono {
+  font-family: var(--font-mono);
+  font-size: var(--type-mono-size);
+}
+.label, .eyebrow {
+  font-size: var(--type-label-size);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+  text-transform: var(--type-label-transform);
+  color: var(--fg-tertiary);
+}
+a {
+  color: var(--fg-link);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+a:hover { color: var(--fg-link-hover); }
