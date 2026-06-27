@@ -3,16 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>REVCO — AI Infrastructure for Law Firms</title>
+<title>REVCO: AI Infrastructure for Law Firms</title>
+<meta name="description" content="REVCO builds attorney-supervised AI workflow infrastructure for family law firms across discovery, intake, receivables, client communication, and matter intelligence.">
+<link rel="icon" href="assets/logo-symbol-96.png">
 <link rel="stylesheet" href="colors_and_type.css">
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg-primary); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+button, a { -webkit-tap-highlight-color: transparent; }
+h1, h2, h3, .hero-h1, .section-h2, .cta-h2, .product-hero-h1 { text-wrap: balance; }
+p, .hero-sub, .section-lead, .cta-sub, .product-hero-sub, .feature-card-body, .step-body, .ws-body { text-wrap: pretty; }
 
 /* ── NAV ── */
 .nav {
@@ -35,6 +36,24 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
 .nav-link:hover { color: #fff; background: rgba(255,255,255,0.06); }
 .nav-link.active { color: #fff; }
 .nav-cta { display: flex; gap: 10px; align-items: center; }
+.mobile-menu-toggle {
+  display: none; width: 40px; height: 40px; border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.16); background: rgba(255,255,255,0.04);
+  color: #fff; align-items: center; justify-content: center; cursor: pointer;
+}
+.mobile-menu {
+  display: none; position: fixed; top: 58px; left: 0; right: 0; z-index: 190;
+  background: rgba(10,15,30,0.98); border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 14px 18px 18px; box-shadow: 0 18px 40px rgba(0,0,0,0.28);
+}
+.mobile-menu.open { display: block; }
+.mobile-menu-grid { display: grid; gap: 8px; }
+.mobile-menu button {
+  width: 100%; min-height: 44px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.82);
+  text-align: left; padding: 10px 12px; font: 600 14px var(--font-sans); cursor: pointer;
+}
+.mobile-menu button:hover { color: #fff; background: rgba(255,255,255,0.08); }
 .btn-nav-ghost {
   padding: 7px 16px; border-radius: 6px; font-size: 13px; font-weight: 600;
   color: rgba(255,255,255,0.75); background: transparent;
@@ -47,6 +66,22 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
   transition: background 150ms; font-family: var(--font-sans);
 }
 .btn-nav-primary:hover { background: var(--blue-600); }
+.nav-link:focus-visible,
+.btn-nav-ghost:focus-visible,
+.btn-nav-primary:focus-visible,
+.btn-primary:focus-visible,
+.btn-ghost:focus-visible,
+.btn-watch:focus-visible,
+.btn-watch-dark:focus-visible,
+.product-cta:focus-visible,
+.back-btn:focus-visible,
+.modal-close:focus-visible,
+.product-card:focus-visible,
+.footer-link:focus-visible,
+.footer-legal a:focus-visible {
+  outline: 2px solid var(--blue-300);
+  outline-offset: 3px;
+}
 
 /* ── PAGE SECTIONS ── */
 .page-section { display: none; }
@@ -167,7 +202,8 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
   padding: 26px; box-shadow: var(--shadow-sm); cursor: pointer;
   transition: all 200ms; display: flex; flex-direction: column; position: relative;
 }
-.product-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); border-color: var(--border-default); }
+.product-card:hover,
+.product-card:focus-visible { box-shadow: var(--shadow-md); transform: translateY(-2px); border-color: var(--border-default); }
 
 .product-card.featured {
   grid-column: span 3; background: var(--navy-800);
@@ -272,6 +308,17 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
 }
 .modal-close:hover { background: rgba(255,255,255,0.15); color: #fff; }
 .modal-body { padding: 0; }
+.content-modal-body { padding: 26px; color: rgba(255,255,255,0.72); }
+.content-modal-kicker {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--blue-300); margin-bottom: 10px;
+}
+.content-modal-body h2 { font-size: 28px; line-height: 1.15; color: #fff; margin-bottom: 12px; letter-spacing: -0.02em; }
+.content-modal-body p { font-size: 14px; line-height: 1.7; margin-bottom: 16px; max-width: 70ch; }
+.content-modal-body ul { display: grid; gap: 10px; margin: 16px 0 22px; padding-left: 18px; }
+.content-modal-body li { font-size: 13px; line-height: 1.55; }
+.modal-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+.copy-status { font-size: 12px; color: var(--blue-200); min-height: 18px; margin-top: 10px; }
 
 /* ── PRODUCT FEATURE GRID ── */
 .feature-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 48px; }
@@ -320,22 +367,22 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
 .footer { background: var(--navy-950); border-top: 1px solid rgba(255,255,255,0.06); }
 .footer-inner { max-width: 1280px; margin: 0 auto; padding: 64px 40px 36px; }
 .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
-.footer-brand p { font-size: 13px; line-height: 1.65; color: rgba(255,255,255,0.35); max-width: 260px; margin-top: 16px; }
-.footer-col-title { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 14px; }
-.footer-link { display: block; font-size: 13px; color: rgba(255,255,255,0.45); text-decoration: none; margin-bottom: 8px; transition: color 150ms; cursor: pointer; }
+.footer-brand p { font-size: 13px; line-height: 1.65; color: rgba(255,255,255,0.72); max-width: 260px; margin-top: 16px; }
+.footer-col-title { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.76); margin-bottom: 14px; }
+.footer-link { display: block; font-size: 13px; color: rgba(255,255,255,0.72); text-decoration: none; margin-bottom: 8px; transition: color 150ms; cursor: pointer; }
 .footer-link:hover { color: rgba(255,255,255,0.85); }
 .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); }
-.footer-copy { font-size: 12px; color: rgba(255,255,255,0.25); }
+.footer-copy { font-size: 12px; color: rgba(255,255,255,0.64); }
 .footer-legal { display: flex; gap: 20px; }
-.footer-legal a { font-size: 12px; color: rgba(255,255,255,0.25); text-decoration: none; cursor: pointer; }
-.footer-legal a:hover { color: rgba(255,255,255,0.6); }
+.footer-legal a { font-size: 12px; color: rgba(255,255,255,0.66); text-decoration: none; cursor: pointer; }
+.footer-legal a:hover { color: rgba(255,255,255,0.86); }
 
 /* ── HOW IT WORKS STEPS ── */
 .steps-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; margin-top: 52px; }
 .step-card { background: var(--gray-0); border: 1px solid var(--border-subtle); padding: 26px 22px; position: relative; }
 .step-card:first-child { border-radius: 10px 0 0 10px; }
 .step-card:last-child  { border-radius: 0 10px 10px 0; }
-.step-num { font-family: var(--font-mono); font-size: 10px; font-weight: 700; color: var(--blue-500); letter-spacing: 0.1em; margin-bottom: 14px; }
+.step-num { font-family: var(--font-sans); font-size: 10px; font-weight: 700; color: var(--blue-500); letter-spacing: 0.08em; margin-bottom: 14px; text-transform: uppercase; }
 .step-icon { width: 38px; height: 38px; border-radius: 8px; background: var(--blue-50); display: flex; align-items: center; justify-content: center; color: var(--blue-600); margin-bottom: 12px; }
 .step-title { font-size: 14px; font-weight: 600; color: var(--fg-primary); margin-bottom: 7px; }
 .step-body { font-size: 12px; line-height: 1.65; color: var(--fg-secondary); }
@@ -352,6 +399,29 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
 .stat-val { font-size: 36px; font-weight: 700; color: var(--fg-primary); letter-spacing: -0.03em; line-height: 1; margin-bottom: 6px; }
 .stat-label { font-size: 13px; color: var(--fg-secondary); }
 
+/* ── TRUST BAND ── */
+.trust-section { background: var(--gray-0); border-bottom: 1px solid var(--border-subtle); }
+.trust-grid {
+  display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 54px; align-items: start;
+}
+.trust-proof-list { display: grid; gap: 12px; }
+.trust-proof-item {
+  display: grid; grid-template-columns: 34px 1fr; gap: 14px; padding: 18px 0;
+  border-top: 1px solid var(--border-subtle);
+}
+.trust-proof-icon {
+  width: 34px; height: 34px; border-radius: 8px; background: var(--blue-50);
+  color: var(--blue-600); display: flex; align-items: center; justify-content: center;
+}
+.trust-proof-title { font-size: 14px; font-weight: 700; color: var(--fg-primary); margin-bottom: 4px; }
+.trust-proof-body { font-size: 13px; line-height: 1.65; color: var(--fg-secondary); }
+.trust-note {
+  background: var(--navy-800); color: rgba(255,255,255,0.72);
+  border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 24px;
+}
+.trust-note-title { color: #fff; font-size: 15px; font-weight: 700; margin-bottom: 10px; }
+.trust-note p { font-size: 13px; line-height: 1.7; margin-bottom: 14px; }
+
 /* ── AVAILABILITY BADGE ── */
 .avail-pill {
   display: inline-flex; align-items: center; gap: 6px;
@@ -362,22 +432,105 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
 .avail-soon { background: var(--gray-100); color: var(--fg-tertiary); }
 
 /* ── SCROLL REVEAL ── */
-.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+.reveal { opacity: 1; transform: translateY(0); transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+html.js .reveal { opacity: 0; transform: translateY(20px); }
 .reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 1080px) {
+  .nav-inner { padding: 0 28px; gap: 22px; }
+  .nav-links { gap: 2px; }
+  .nav-link { padding: 6px 8px; font-size: 13px; }
+  .hero-inner { grid-template-columns: 1fr; gap: 44px; padding: 88px 32px 64px; }
+  .hero-sub { max-width: 640px; }
+  .products-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .product-card.featured { grid-column: span 2; grid-template-columns: 1fr; }
+  .feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .steps-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .step-card,
+  .step-card:first-child,
+  .step-card:last-child { border-radius: 10px; }
+  .footer-grid { grid-template-columns: 1.5fr 1fr 1fr; gap: 32px; }
+  .stats-bar { flex-wrap: wrap; }
+  .stat-item { flex: 1 1 50%; }
+  .trust-grid { grid-template-columns: 1fr; gap: 32px; }
+}
+
+@media (max-width: 760px) {
+  .nav-inner { height: 58px; padding: 0 18px; gap: 16px; }
+  .nav-logo img { width: 93px; height: 28px; }
+  .nav-links { display: none; }
+  .nav-cta { margin-left: auto; }
+  .btn-nav-ghost { display: none; }
+  .btn-nav-primary { min-height: 40px; padding: 8px 13px; }
+  .mobile-menu-toggle { display: inline-flex; }
+  .hero { min-height: auto; padding-top: 58px; }
+  .hero-inner { padding: 70px 20px 46px; gap: 34px; }
+  .hero-h1 { font-size: clamp(36px, 11vw, 48px); letter-spacing: -0.02em; }
+  .hero-sub,
+  .product-hero-sub { font-size: 16px; }
+  .hero-actions,
+  .cta-actions { flex-direction: column; align-items: stretch; }
+  .btn-primary,
+  .btn-ghost { width: 100%; justify-content: center; min-height: 46px; }
+  .hero-trust { gap: 10px 14px; }
+  .trust-sep { display: none; }
+  .hero-panel { padding: 16px; }
+  .panel-stats { grid-template-columns: 1fr; }
+  .panel-row { align-items: flex-start; flex-wrap: wrap; }
+  .panel-row-name { min-width: 0; flex-basis: calc(100% - 34px); }
+  .section-inner,
+  .product-video-inner,
+  .product-hero-inner,
+  .footer-inner { padding-left: 20px; padding-right: 20px; }
+  .section-inner { padding-top: 72px; padding-bottom: 72px; }
+  .section-h2,
+  .cta-h2 { font-size: clamp(28px, 8vw, 36px); }
+  .product-hero-h1 { font-size: clamp(34px, 10vw, 44px); }
+  .products-grid,
+  .feature-grid,
+  .steps-grid { grid-template-columns: 1fr; }
+  .product-card.featured { grid-column: auto; }
+  .product-card { padding: 22px; }
+  .stats-bar { display: block; }
+  .stat-item { padding: 24px 20px; border-right: none; border-bottom: 1px solid var(--border-subtle); }
+  .stat-item:last-child { border-bottom: none; }
+  .workflow-step { flex-direction: column; gap: 12px; }
+  .ws-badge { align-self: flex-start; }
+  .modal-overlay { padding: 16px; align-items: flex-start; overflow: auto; }
+  .modal-box { width: 100%; max-width: none; margin-top: 68px; }
+  .content-modal-body { padding: 22px; }
+  .modal-actions { flex-direction: column; }
+  .footer-grid,
+  .footer-bottom { display: block; }
+  .footer-grid > div { margin-bottom: 28px; }
+  .footer-legal { margin-top: 16px; flex-wrap: wrap; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+  html.js .reveal,
+  .reveal { opacity: 1; transform: none; }
+}
 
 </style>
 </head>
 <body>
+<script>document.documentElement.classList.add('js');</script>
 
 <!-- ═══════════ NAV ═══════════ -->
 <nav class="nav" id="site-nav">
   <div class="nav-inner">
     <div class="nav-logo">
-      <img src="assets/logo-horizontal.png" alt="REVCO" style="filter: brightness(0) invert(1);" height="34">
+      <img src="assets/logo-horizontal-240.png" alt="REVCO" width="113" height="34" style="filter: brightness(0) invert(1);">
     </div>
     <div class="nav-links">
       <button class="nav-link active" onclick="showPage('home')">Products</button>
-      <button class="nav-link" onclick="showPage('lexidraft')">LexiDraft</button>
+      <button class="nav-link" onclick="showPage('revexplore')">RevExplore</button>
       <button class="nav-link" onclick="showPage('revenue')">Revenue Recovery</button>
       <button class="nav-link" onclick="showPage('intake')">Intake</button>
       <button class="nav-link" onclick="showPage('status')">Client Status</button>
@@ -386,13 +539,27 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
     <div class="nav-cta">
       <button class="btn-nav-ghost">Sign In</button>
       <button class="btn-nav-primary">Request Access</button>
+      <button class="mobile-menu-toggle" aria-label="Open product menu" aria-expanded="false" onclick="toggleMobileMenu()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+      </button>
     </div>
   </div>
 </nav>
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <div class="mobile-menu-grid">
+    <button onclick="showPage('home'); closeMobileMenu();">Products overview</button>
+    <button onclick="showPage('revexplore'); closeMobileMenu();">RevExplore</button>
+    <button onclick="showPage('revenue'); closeMobileMenu();">AI Revenue Recovery</button>
+    <button onclick="showPage('intake'); closeMobileMenu();">AI Intake System</button>
+    <button onclick="showPage('status'); closeMobileMenu();">AI Client Status</button>
+    <button onclick="showPage('intelligence'); closeMobileMenu();">Case Intelligence</button>
+  </div>
+</div>
 
 <!-- ═══════════════════════════════════════════════════════════
      HOME PAGE
 ═══════════════════════════════════════════════════════════ -->
+<main id="site-main">
 <div class="page-section active" id="page-home">
 
   <!-- ── Hero ── -->
@@ -406,10 +573,10 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
           Legal Operations Infrastructure
         </div>
         <h1 class="hero-h1">Structured workflows<br>for <em>serious</em> law firms.</h1>
-        <p class="hero-sub">REVCO builds the AI infrastructure layer that turns fragmented legal operations into structured, reviewable systems — across intake, discovery, collections, and client communication.</p>
+        <p class="hero-sub">REVCO builds the AI infrastructure layer that turns fragmented legal operations into structured, reviewable systems across intake, discovery, collections, and client communication.</p>
         <div class="hero-actions">
-          <button class="btn-primary" onclick="showPage('lexidraft')">
-            See LexiDraft
+          <button class="btn-primary" onclick="showPage('revexplore')">
+            See RevExplore
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
           </button>
           <button class="btn-ghost">Book a Demo</button>
@@ -436,13 +603,13 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
           </div>
         </div>
       </div>
-      <!-- Right: LexiDraft preview panel -->
+      <!-- Right: RevExplore preview panel -->
       <div class="hero-right">
         <div class="hero-panel">
           <div class="panel-header">
             <span class="panel-dot" style="background:#2ea866;"></span>
-            <span class="panel-title">Smith v. Smith — Discovery Production</span>
-            <span class="panel-sub">LexiDraft</span>
+            <span class="panel-title">Smith v. Smith: Discovery Production</span>
+            <span class="panel-sub">RevExplore</span>
           </div>
           <div class="panel-stats">
             <div class="panel-stat">
@@ -480,7 +647,7 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#c580f0" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </div>
             <span class="panel-row-name">Attorney_Notes_Privileged.pdf</span>
-            <span class="panel-bates">—</span>
+            <span class="panel-bates">Pending</span>
             <span class="panel-badge pb-priv">Privilege</span>
           </div>
           <div style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:space-between;">
@@ -503,45 +670,77 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
     </div>
     <div class="stat-item reveal">
       <div class="stat-val">100%</div>
-      <div class="stat-label">Attorney-supervised — every automated output reviewed before use</div>
+      <div class="stat-label">Attorney-supervised, with every automated output reviewed before use</div>
     </div>
     <div class="stat-item reveal">
       <div class="stat-val">Texas</div>
-      <div class="stat-label">Family law focused — built for the specific demands of family practice</div>
+      <div class="stat-label">Family law focused, built for the specific demands of family practice</div>
     </div>
     <div class="stat-item reveal">
       <div class="stat-val">0</div>
-      <div class="stat-label">Autonomous legal decisions — AI prepares, attorneys decide</div>
+      <div class="stat-label">No autonomous legal decisions. AI prepares, attorneys decide.</div>
     </div>
   </div>
+
+  <!-- ── Trust proof ── -->
+  <section class="trust-section">
+    <div class="section-inner">
+      <div class="trust-grid">
+        <div>
+          <div class="section-eyebrow reveal">Operating Model</div>
+          <h2 class="section-h2 reveal">AI prepares the work.<br>Attorneys keep control.</h2>
+          <p class="section-lead reveal">REVCO products are designed around review gates, source records, and firm-configured permissions. The workflow is meant to reduce operational drag without turning legal judgment over to software.</p>
+        </div>
+        <div class="trust-proof-list">
+          <div class="trust-proof-item reveal">
+            <div class="trust-proof-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <div><div class="trust-proof-title">Review gates before output</div><div class="trust-proof-body">Production sets, privilege calls, draft responses, and client-facing messages stay subject to attorney approval.</div></div>
+          </div>
+          <div class="trust-proof-item reveal">
+            <div class="trust-proof-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+            <div><div class="trust-proof-title">Source-linked records</div><div class="trust-proof-body">Facts, classifications, and generated documents are designed to remain traceable to the uploaded matter record.</div></div>
+          </div>
+          <div class="trust-proof-item reveal">
+            <div class="trust-proof-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+            <div><div class="trust-proof-title">Firm-configured boundaries</div><div class="trust-proof-body">Guardrails, permissions, message scope, and escalation rules are set for the firm before automation is expanded.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="trust-note reveal" style="margin-top:34px;">
+        <div class="trust-note-title">Security and compliance posture</div>
+        <p>REVCO is built for legal operations where confidentiality, reviewability, and audit trails matter. The public site should explain this plainly, so the Security and BAA links now open concrete guidance instead of acting as placeholders.</p>
+        <button class="btn-watch-dark" onclick="openInfoModal('security')">View security posture</button>
+      </div>
+    </div>
+  </section>
 
   <!-- ── Products section ── -->
   <section class="products-section">
     <div class="section-inner">
       <div class="section-eyebrow reveal">Product Portfolio</div>
       <h2 class="section-h2 reveal">Infrastructure for every stage<br>of legal operations.</h2>
-      <p class="section-lead reveal">Each REVCO product addresses a specific operational workflow — not a generic AI feature. Built for family law firms handling real caseloads.</p>
+      <p class="section-lead reveal">Each REVCO product addresses a specific operational workflow, not a generic AI feature. Built for family law firms handling real caseloads.</p>
 
       <div class="products-grid">
-        <!-- Featured: LexiDraft -->
-        <div class="product-card featured reveal" onclick="showPage('lexidraft')">
+        <!-- Featured: RevExplore -->
+        <div class="product-card featured reveal" onclick="showPage('revexplore')">
           <div>
             <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
               <div style="width:50px;height:50px;border-radius:12px;background:rgba(29,108,216,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4e9af5" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
               </div>
               <div>
-                <div style="font-size:20px;font-weight:700;color:#fff;margin-bottom:4px;">LexiDraft</div>
+                <div style="font-size:20px;font-weight:700;color:#fff;margin-bottom:4px;">RevExplore</div>
                 <span class="product-tag tag-flagship" style="margin-bottom:0;">Flagship Product</span>
               </div>
             </div>
-            <p style="font-size:14px;line-height:1.7;color:rgba(255,255,255,0.58);margin-bottom:20px;">Turns messy client document uploads into organized, classified, Bates-stamped production packages — with a production index, privilege log, and draft Response to RFP. Designed for Texas family law discovery.</p>
+            <p style="font-size:14px;line-height:1.7;color:rgba(255,255,255,0.58);margin-bottom:20px;">Turns messy client document uploads into organized, classified, Bates-stamped production packages with a production index, privilege log, and draft Response to RFP. Designed for Texas family law discovery.</p>
             <div style="display:flex;gap:10px;flex-wrap:wrap;">
-              <button class="btn-watch-dark" onclick="event.stopPropagation();openModal('lexidraft')">
+              <button class="btn-watch-dark" onclick="event.stopPropagation();openModal('revexplore')">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                 Watch how it works
               </button>
-              <button class="product-cta" style="color:var(--blue-300);margin-top:0;" onclick="event.stopPropagation();showPage('lexidraft')">
+              <button class="product-cta" style="color:var(--blue-300);margin-top:0;" onclick="event.stopPropagation();showPage('revexplore')">
                 View product
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
               </button>
@@ -624,7 +823,7 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
           </div>
           <div class="product-name">Case Intelligence Assistant</div>
-          <div class="product-desc">Matter summaries, timelines, and attorney review support. Structured intelligence from the case file — prepared for review, not for replacement.</div>
+          <div class="product-desc">Matter summaries, timelines, and attorney review support. Structured intelligence from the case file, prepared for review, not for replacement.</div>
           <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;">
             <button class="btn-watch" onclick="event.stopPropagation();openModal('intelligence')">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
@@ -637,22 +836,22 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
     </div>
   </section>
 
-  <!-- ── How LexiDraft works ── -->
+  <!-- ── How RevExplore works ── -->
   <section style="background:var(--gray-0);border-top:1px solid var(--border-subtle);">
     <div class="section-inner">
-      <div class="section-eyebrow reveal">How LexiDraft Works</div>
+      <div class="section-eyebrow reveal">How RevExplore Works</div>
       <h2 class="section-h2 reveal">From inbox to production package<br>in four steps.</h2>
       <div class="steps-grid">
         <div class="step-card reveal">
-          <div class="step-num">01</div>
+          <div class="step-num">Intake</div>
           <div class="step-icon">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
           </div>
           <div class="step-title">Upload</div>
-          <div class="step-body">Client documents arrive via secure upload. Any format — PDF, DOCX, photos, scanned pages. No sorting required from staff.</div>
+          <div class="step-body">Client documents arrive via secure upload in PDFs, DOCX files, photos, or scanned pages. Staff do not need to sort them first.</div>
         </div>
         <div class="step-card reveal">
-          <div class="step-num">02</div>
+          <div class="step-num">Mapping</div>
           <div class="step-icon">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
           </div>
@@ -660,7 +859,7 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
           <div class="step-body">Each document is mapped to your RFP categories. Confidence scores surface items requiring attorney review.</div>
         </div>
         <div class="step-card reveal">
-          <div class="step-num">03</div>
+          <div class="step-num">Control</div>
           <div class="step-icon">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
@@ -668,7 +867,7 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
           <div class="step-body">Attorney approves classifications, handles privilege flags, and confirms the production set. Nothing is stamped without sign-off.</div>
         </div>
         <div class="step-card reveal">
-          <div class="step-num">04</div>
+          <div class="step-num">Output</div>
           <div class="step-icon">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           </div>
@@ -697,12 +896,12 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
     <div class="footer-inner">
       <div class="footer-grid">
         <div class="footer-brand">
-          <img src="assets/logo-horizontal.png" alt="REVCO" height="30" style="filter:brightness(0) invert(1) opacity(0.7);">
+          <img src="assets/logo-horizontal-240.png" alt="REVCO" width="100" height="30" style="filter:brightness(0) invert(1) opacity(0.7);">
           <p>AI infrastructure for family law firms. Structured workflows across intake, discovery, collections, and client communication.</p>
         </div>
         <div>
           <div class="footer-col-title">Products</div>
-          <a class="footer-link" onclick="showPage('lexidraft')">LexiDraft</a>
+          <a class="footer-link" onclick="showPage('revexplore')">RevExplore</a>
           <a class="footer-link" onclick="showPage('revenue')">AI Revenue Recovery</a>
           <a class="footer-link" onclick="showPage('intake')">AI Intake System</a>
           <a class="footer-link" onclick="showPage('status')">AI Client Status</a>
@@ -736,8 +935,8 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
      PRODUCT DETAIL PAGES (shared template, swapped by JS)
 ═══════════════════════════════════════════════════════════ -->
 
-<!-- LexiDraft -->
-<div class="page-section" id="page-lexidraft">
+<!-- RevExplore -->
+<div class="page-section" id="page-revexplore">
   <div class="product-hero">
     <div class="product-hero-bg"></div>
     <div class="product-hero-inner">
@@ -750,10 +949,10 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
         Discovery Production Module
       </div>
       <h1 class="product-hero-h1">Disorganized uploads.<br>Court-ready production.</h1>
-      <p class="product-hero-sub">LexiDraft takes the document chaos that arrives from clients and returns a classified, Bates-stamped, privilege-reviewed production package — with a draft Response to RFP and full production index.</p>
+      <p class="product-hero-sub">RevExplore takes the document chaos that arrives from clients and returns a classified, Bates-stamped, privilege-reviewed production package with a draft Response to RFP and full production index.</p>
       <div class="hero-actions">
         <button class="btn-primary">Request Access</button>
-        <button class="btn-ghost" onclick="openModal('lexidraft')">
+        <button class="btn-ghost" onclick="openModal('revexplore')">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
           Watch how it works
         </button>
@@ -766,9 +965,9 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
     <div class="product-video-inner">
       <div style="text-align:center;margin-bottom:32px;">
         <div class="section-eyebrow" style="color:var(--blue-300);">Process Walkthrough</div>
-        <div style="font-size:22px;font-weight:700;color:#fff;letter-spacing:-0.01em;">From upload to production package — end to end.</div>
+        <div style="font-size:22px;font-weight:700;color:#fff;letter-spacing:-0.01em;">From upload to production package, end to end.</div>
       </div>
-      <div class="video-wrapper" id="inline-video-lexidraft"></div>
+      <div class="video-wrapper" id="inline-video-revexplore"></div>
     </div>
   </div>
 
@@ -791,7 +990,7 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
         <div class="feature-card">
           <div class="feature-card-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg></div>
           <div class="feature-card-title">Consistent Bates Numbering</div>
-          <div class="feature-card-body">Configurable prefix, start number, and padding. Applied uniformly. The Bates label is stamped directly on each document page — not just the filename.</div>
+          <div class="feature-card-body">Configurable prefix, start number, and padding. Applied uniformly. The Bates label is stamped directly on each document page, not just the filename.</div>
         </div>
         <div class="feature-card">
           <div class="feature-card-icon" style="background:var(--status-privilege-bg);color:var(--status-privilege);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
@@ -818,18 +1017,18 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
       <div class="section-eyebrow">Production Workflow</div>
       <h2 class="section-h2">Step-by-step, with attorney<br>control at every gate.</h2>
       <div class="workflow-steps">
-        <div class="workflow-step"><div class="ws-num">1</div><div style="flex:1;"><div class="ws-title">Client uploads documents</div><div class="ws-body">Documents arrive via secure upload link. All file types accepted. LexiDraft queues them immediately — no manual sorting required.</div></div><span class="ws-badge" style="background:var(--blue-50);color:var(--blue-700);">Automated</span></div>
+        <div class="workflow-step"><div class="ws-num">1</div><div style="flex:1;"><div class="ws-title">Client uploads documents</div><div class="ws-body">Documents arrive via secure upload link. All file types accepted. RevExplore queues them immediately, with no manual sorting required.</div></div><span class="ws-badge" style="background:var(--blue-50);color:var(--blue-700);">Automated</span></div>
         <div class="workflow-step"><div class="ws-num">2</div><div style="flex:1;"><div class="ws-title">AI classifies against RFP categories</div><div class="ws-body">Each document is matched to your matter's RFP categories. Documents with lower confidence are flagged for staff or attorney review before classification is finalized.</div></div><span class="ws-badge" style="background:var(--blue-50);color:var(--blue-700);">AI-prepared</span></div>
         <div class="workflow-step"><div class="ws-num">3</div><div style="flex:1;"><div class="ws-title">Staff reviews classification queue</div><div class="ws-body">Paralegals review flagged classifications in a structured queue. Reclassification is a single-click action. Confidence scores show where to focus.</div></div><span class="ws-badge" style="background:var(--status-info-bg);color:var(--status-info);">Staff Review</span></div>
         <div class="workflow-step"><div class="ws-num">4</div><div style="flex:1;"><div class="ws-title">Attorney reviews privilege queue</div><div class="ws-body">Documents flagged for potential privilege are routed to the attorney. Production is locked until this step is complete.</div></div><span class="ws-badge" style="background:var(--status-privilege-bg);color:var(--status-privilege);">Attorney Gate</span></div>
-        <div class="workflow-step"><div class="ws-num">5</div><div style="flex:1;"><div class="ws-title">Bates configuration and ordering</div><div class="ws-body">Set the Bates prefix, starting number, and padding. Reorder documents within each RFP category. LexiDraft applies numbering to the attorney-approved set.</div></div><span class="ws-badge" style="background:var(--status-info-bg);color:var(--status-info);">Configurable</span></div>
+        <div class="workflow-step"><div class="ws-num">5</div><div style="flex:1;"><div class="ws-title">Bates configuration and ordering</div><div class="ws-body">Set the Bates prefix, starting number, and padding. Reorder documents within each RFP category. RevExplore applies numbering to the attorney-approved set.</div></div><span class="ws-badge" style="background:var(--status-info-bg);color:var(--status-info);">Configurable</span></div>
         <div class="workflow-step"><div class="ws-num">6</div><div style="flex:1;"><div class="ws-title">Production package exported</div><div class="ws-body">Final package includes: Bates-stamped documents, production index, privilege log (if applicable), and a draft Response to RFP organized by number.</div></div><span class="ws-badge" style="background:var(--status-success-bg);color:var(--status-success);">Final Output</span></div>
       </div>
     </div>
   </section>
 
   <section class="cta-section"><div class="cta-inner"><div class="section-eyebrow" style="color:var(--blue-300);text-align:center;">Ready to start</div><h2 class="cta-h2">Built for Texas family law firms handling real discovery.</h2><p class="cta-sub">We're accepting a limited number of design partners. If you produce discovery in Texas family law matters, this was built for your workflow.</p><div class="cta-actions"><button class="btn-primary">Request Access</button><button class="btn-ghost">Book a Demo</button></div></div></section>
-  <footer class="footer"><div class="footer-inner"><div class="footer-grid"><div class="footer-brand"><img src="assets/logo-horizontal.png" alt="REVCO" height="28" style="filter:brightness(0) invert(1) opacity(0.7);"><p>AI infrastructure for family law firms.</p></div><div><div class="footer-col-title">Products</div><a class="footer-link" onclick="showPage('lexidraft')">LexiDraft</a><a class="footer-link" onclick="showPage('revenue')">AI Revenue Recovery</a><a class="footer-link" onclick="showPage('intake')">AI Intake System</a></div><div><div class="footer-col-title">Company</div><a class="footer-link">About</a><a class="footer-link">Security</a><a class="footer-link">Contact</a></div><div><div class="footer-col-title">Legal</div><a class="footer-link">Privacy Policy</a><a class="footer-link">Terms of Service</a><a class="footer-link">BAA Available</a></div></div><div class="footer-bottom"><div class="footer-copy">© 2026 REVCO. All rights reserved.</div><div class="footer-legal"><a>Privacy</a><a>Terms</a><a>Security</a></div></div></div></footer>
+  <footer class="footer"><div class="footer-inner"><div class="footer-grid"><div class="footer-brand"><img src="assets/logo-horizontal-240.png" alt="REVCO" width="93" height="28" style="filter:brightness(0) invert(1) opacity(0.7);"><p>AI infrastructure for family law firms.</p></div><div><div class="footer-col-title">Products</div><a class="footer-link" onclick="showPage('revexplore')">RevExplore</a><a class="footer-link" onclick="showPage('revenue')">AI Revenue Recovery</a><a class="footer-link" onclick="showPage('intake')">AI Intake System</a></div><div><div class="footer-col-title">Company</div><a class="footer-link">About</a><a class="footer-link">Security</a><a class="footer-link">Contact</a></div><div><div class="footer-col-title">Legal</div><a class="footer-link">Privacy Policy</a><a class="footer-link">Terms of Service</a><a class="footer-link">BAA Available</a></div></div><div class="footer-bottom"><div class="footer-copy">© 2026 REVCO. All rights reserved.</div><div class="footer-legal"><a>Privacy</a><a>Terms</a><a>Security</a></div></div></div></footer>
 </div>
 
 <!-- Revenue Recovery -->
@@ -842,8 +1041,8 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
         Receivables Recovery Module
       </div>
-      <h1 class="product-hero-h1">Overdue invoices.<br>Collected — without the calls.</h1>
-      <p class="product-hero-sub">AI Revenue Recovery runs compliant, scheduled follow-up sequences for outstanding AR — email and SMS with secure payment links — without pulling staff into uncomfortable collection conversations.</p>
+      <h1 class="product-hero-h1">Overdue invoices.<br>Collected without the calls.</h1>
+      <p class="product-hero-sub">AI Revenue Recovery runs compliant, scheduled follow-up sequences for outstanding AR using email and SMS with secure payment links, without pulling staff into uncomfortable collection conversations.</p>
       <div class="hero-actions">
         <button class="btn-primary">Request Access</button>
         <button class="btn-ghost" onclick="openModal('revenue')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch how it works</button>
@@ -852,24 +1051,24 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
   </div>
   <div class="product-video-section">
     <div class="product-video-inner">
-      <div style="text-align:center;margin-bottom:32px;"><div class="section-eyebrow" style="color:var(--blue-300);">Process Walkthrough</div><div style="font-size:22px;font-weight:700;color:#fff;letter-spacing:-0.01em;">From overdue invoice to collected balance — automated.</div></div>
+      <div style="text-align:center;margin-bottom:32px;"><div class="section-eyebrow" style="color:var(--blue-300);">Process Walkthrough</div><div style="font-size:22px;font-weight:700;color:#fff;letter-spacing:-0.01em;">From overdue invoice to collected balance, automated.</div></div>
       <div class="video-wrapper" id="inline-video-revenue"></div>
     </div>
   </div>
   <section style="background:var(--gray-0);"><div class="section-inner">
     <div class="section-eyebrow">Core Capabilities</div>
-    <h2 class="section-h2">Compliant follow-up. No collection calls. No staff time.</h2>
+    <h2 class="section-h2">Compliant AR follow-up without staff collection calls.</h2>
     <div class="feature-grid">
-      <div class="feature-card"><div class="feature-card-icon" style="background:var(--status-success-bg);color:var(--status-success);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div class="feature-card-title">Automated Follow-up Sequences</div><div class="feature-card-body">Scheduled email and SMS reminders triggered at attorney-configured intervals — 7, 14, 21 days. Each message includes a secure payment link.</div></div>
-      <div class="feature-card"><div class="feature-card-icon" style="background:var(--status-success-bg);color:var(--status-success);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="feature-card-title">Secure Payment Links</div><div class="feature-card-body">Each message includes a client-specific secure payment link. Clients pay directly from the message — no login required, no phone call needed.</div></div>
+      <div class="feature-card"><div class="feature-card-icon" style="background:var(--status-success-bg);color:var(--status-success);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div class="feature-card-title">Automated Follow-up Sequences</div><div class="feature-card-body">Scheduled email and SMS reminders trigger at attorney-configured intervals: 7, 14, and 21 days. Each message includes a secure payment link.</div></div>
+      <div class="feature-card"><div class="feature-card-icon" style="background:var(--status-success-bg);color:var(--status-success);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="feature-card-title">Secure Payment Links</div><div class="feature-card-body">Each message includes a client-specific secure payment link. Clients pay directly from the message without a login or phone call.</div></div>
       <div class="feature-card"><div class="feature-card-icon" style="background:var(--status-success-bg);color:var(--status-success);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div class="feature-card-title">Attorney-Approved Templates</div><div class="feature-card-body">All message templates are reviewed and approved by the attorney before any sequence runs. The firm controls the tone and language of every communication.</div></div>
       <div class="feature-card"><div class="feature-card-icon" style="background:var(--status-success-bg);color:var(--status-success);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><div class="feature-card-title">Compliance Controls</div><div class="feature-card-body">Sequences follow Texas bar communication rules. Opt-out handling, do-not-contact lists, and frequency caps are enforced automatically.</div></div>
-      <div class="feature-card"><div class="feature-card-icon" style="background:var(--status-success-bg);color:var(--status-success);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div class="feature-card-title">AR Dashboard</div><div class="feature-card-body">Real-time view of all outstanding receivables, sequence status, payment history, and collection rate — across all matters.</div></div>
+      <div class="feature-card"><div class="feature-card-icon" style="background:var(--status-success-bg);color:var(--status-success);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div class="feature-card-title">AR Dashboard</div><div class="feature-card-body">Real-time view of outstanding receivables, sequence status, payment history, and collection rate across all matters.</div></div>
       <div class="feature-card"><div class="feature-card-icon" style="background:var(--status-success-bg);color:var(--status-success);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="feature-card-title">Practice Management Integration</div><div class="feature-card-body">Syncs with your billing system. Payment status updates automatically. No duplicate data entry between systems.</div></div>
     </div>
   </div></section>
   <section class="cta-section"><div class="cta-inner"><div class="section-eyebrow" style="color:var(--blue-300);text-align:center;">Ready to recover more AR</div><h2 class="cta-h2">Reduce outstanding receivables without the overhead.</h2><p class="cta-sub">Set up once, run automatically. Attorney-approved messages, compliant sequences, secure payment links.</p><div class="cta-actions"><button class="btn-primary">Request Access</button><button class="btn-ghost">Book a Demo</button></div></div></section>
-  <footer class="footer"><div class="footer-inner"><div class="footer-grid"><div class="footer-brand"><img src="assets/logo-horizontal.png" alt="REVCO" height="28" style="filter:brightness(0) invert(1) opacity(0.7);"><p>AI infrastructure for family law firms.</p></div><div><div class="footer-col-title">Products</div><a class="footer-link" onclick="showPage('lexidraft')">LexiDraft</a><a class="footer-link" onclick="showPage('revenue')">AI Revenue Recovery</a><a class="footer-link" onclick="showPage('intake')">AI Intake System</a></div><div><div class="footer-col-title">Company</div><a class="footer-link">About</a><a class="footer-link">Security</a><a class="footer-link">Contact</a></div><div><div class="footer-col-title">Legal</div><a class="footer-link">Privacy Policy</a><a class="footer-link">Terms of Service</a><a class="footer-link">BAA Available</a></div></div><div class="footer-bottom"><div class="footer-copy">© 2026 REVCO. All rights reserved.</div><div class="footer-legal"><a>Privacy</a><a>Terms</a><a>Security</a></div></div></div></footer>
+  <footer class="footer"><div class="footer-inner"><div class="footer-grid"><div class="footer-brand"><img src="assets/logo-horizontal-240.png" alt="REVCO" width="93" height="28" style="filter:brightness(0) invert(1) opacity(0.7);"><p>AI infrastructure for family law firms.</p></div><div><div class="footer-col-title">Products</div><a class="footer-link" onclick="showPage('revexplore')">RevExplore</a><a class="footer-link" onclick="showPage('revenue')">AI Revenue Recovery</a><a class="footer-link" onclick="showPage('intake')">AI Intake System</a></div><div><div class="footer-col-title">Company</div><a class="footer-link">About</a><a class="footer-link">Security</a><a class="footer-link">Contact</a></div><div><div class="footer-col-title">Legal</div><a class="footer-link">Privacy Policy</a><a class="footer-link">Terms of Service</a><a class="footer-link">BAA Available</a></div></div><div class="footer-bottom"><div class="footer-copy">© 2026 REVCO. All rights reserved.</div><div class="footer-legal"><a>Privacy</a><a>Terms</a><a>Security</a></div></div></div></footer>
 </div>
 
 <!-- Intake System -->
@@ -883,7 +1082,7 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
         Client Intake Module
       </div>
       <h1 class="product-hero-h1">After-hours inquiries.<br>Structured leads by morning.</h1>
-      <p class="product-hero-sub">The AI Intake System captures, qualifies, and routes every prospective client inquiry — 24 hours a day — delivering a structured intake brief and consultation booking to the attorney before the office opens.</p>
+      <p class="product-hero-sub">The AI Intake System captures, qualifies, and routes every prospective client inquiry 24 hours a day, delivering a structured intake brief and consultation booking to the attorney before the office opens.</p>
       <div class="hero-actions">
         <button class="btn-primary">Request Access</button>
         <button class="btn-ghost" onclick="openModal('intake')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch how it works</button>
@@ -892,24 +1091,24 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
   </div>
   <div class="product-video-section">
     <div class="product-video-inner">
-      <div style="text-align:center;margin-bottom:32px;"><div class="section-eyebrow" style="color:var(--blue-300);">Process Walkthrough</div><div style="font-size:22px;font-weight:700;color:#fff;letter-spacing:-0.01em;">From after-hours inquiry to structured intake brief — overnight.</div></div>
+      <div style="text-align:center;margin-bottom:32px;"><div class="section-eyebrow" style="color:var(--blue-300);">Process Walkthrough</div><div style="font-size:22px;font-weight:700;color:#fff;letter-spacing:-0.01em;">From after-hours inquiry to structured intake brief, overnight.</div></div>
       <div class="video-wrapper" id="inline-video-intake"></div>
     </div>
   </div>
   <section style="background:var(--gray-0);"><div class="section-inner">
     <div class="section-eyebrow">Core Capabilities</div>
-    <h2 class="section-h2">Every inquiry captured. Every lead qualified. No staff required.</h2>
+    <h2 class="section-h2">After-hours intake that delivers structured leads by morning.</h2>
     <div class="feature-grid">
       <div class="feature-card"><div class="feature-card-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div class="feature-card-title">24/7 Lead Capture</div><div class="feature-card-body">The intake system is available around the clock via web chat and SMS. No prospect goes unanswered because it's a weekend or after 5 PM.</div></div>
-      <div class="feature-card"><div class="feature-card-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4"/></svg></div><div class="feature-card-title">Structured Qualification</div><div class="feature-card-body">The system asks attorney-configured qualification questions — matter type, assets, children, urgency — and captures structured answers, not just a name and number.</div></div>
+      <div class="feature-card"><div class="feature-card-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4"/></svg></div><div class="feature-card-title">Structured Qualification</div><div class="feature-card-body">The system asks attorney-configured qualification questions covering matter type, assets, children, and urgency, then captures structured answers instead of only a name and number.</div></div>
       <div class="feature-card"><div class="feature-card-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div class="feature-card-title">Automatic Scheduling</div><div class="feature-card-body">Prospects book consultations directly in the conversation. The system checks attorney availability in real time and confirms the appointment.</div></div>
-      <div class="feature-card"><div class="feature-card-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div><div class="feature-card-title">Intake Brief Delivery</div><div class="feature-card-body">A structured intake brief — matter type, key facts, qualifying answers, and consultation details — is delivered to the attorney before the consultation.</div></div>
+      <div class="feature-card"><div class="feature-card-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div><div class="feature-card-title">Intake Brief Delivery</div><div class="feature-card-body">A structured intake brief with matter type, key facts, qualifying answers, and consultation details is delivered to the attorney before the consultation.</div></div>
       <div class="feature-card"><div class="feature-card-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="feature-card-title">Attorney-Configured Guardrails</div><div class="feature-card-body">The system doesn't provide legal advice, discuss fees, or make commitments on behalf of the firm. What it says and doesn't say is configured and approved by the attorney.</div></div>
-      <div class="feature-card"><div class="feature-card-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.82 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.77 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 5.61 5.61l.9-.9a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><div class="feature-card-title">Conflict Check Integration</div><div class="feature-card-body">The intake brief includes the opposing party name. Conflict check is surfaced before the consultation is confirmed — before anyone walks in the door.</div></div>
+      <div class="feature-card"><div class="feature-card-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.82 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.77 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 5.61 5.61l.9-.9a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><div class="feature-card-title">Conflict Check Integration</div><div class="feature-card-body">The intake brief includes the opposing party name. Conflict check is surfaced before the consultation is confirmed and before anyone walks in the door.</div></div>
     </div>
   </div></section>
-  <section class="cta-section"><div class="cta-inner"><div class="section-eyebrow" style="color:var(--blue-300);text-align:center;">Always on</div><h2 class="cta-h2">Never miss a prospective client again.</h2><p class="cta-sub">Every inquiry answered. Every consultation booked. Structured intake brief delivered — before the office opens.</p><div class="cta-actions"><button class="btn-primary">Request Access</button><button class="btn-ghost">Book a Demo</button></div></div></section>
-  <footer class="footer"><div class="footer-inner"><div class="footer-grid"><div class="footer-brand"><img src="assets/logo-horizontal.png" alt="REVCO" height="28" style="filter:brightness(0) invert(1) opacity(0.7);"><p>AI infrastructure for family law firms.</p></div><div><div class="footer-col-title">Products</div><a class="footer-link" onclick="showPage('lexidraft')">LexiDraft</a><a class="footer-link" onclick="showPage('revenue')">AI Revenue Recovery</a><a class="footer-link" onclick="showPage('intake')">AI Intake System</a></div><div><div class="footer-col-title">Company</div><a class="footer-link">About</a><a class="footer-link">Security</a><a class="footer-link">Contact</a></div><div><div class="footer-col-title">Legal</div><a class="footer-link">Privacy Policy</a><a class="footer-link">Terms of Service</a><a class="footer-link">BAA Available</a></div></div><div class="footer-bottom"><div class="footer-copy">© 2026 REVCO. All rights reserved.</div><div class="footer-legal"><a>Privacy</a><a>Terms</a><a>Security</a></div></div></div></footer>
+  <section class="cta-section"><div class="cta-inner"><div class="section-eyebrow" style="color:var(--blue-300);text-align:center;">Always on</div><h2 class="cta-h2">Capture the inquiry before another firm responds.</h2><p class="cta-sub">The system answers after-hours leads, collects the facts your firm needs, and delivers a structured intake brief before the office opens.</p><div class="cta-actions"><button class="btn-primary">Request Access</button><button class="btn-ghost">Book a Demo</button></div></div></section>
+  <footer class="footer"><div class="footer-inner"><div class="footer-grid"><div class="footer-brand"><img src="assets/logo-horizontal-240.png" alt="REVCO" width="93" height="28" style="filter:brightness(0) invert(1) opacity(0.7);"><p>AI infrastructure for family law firms.</p></div><div><div class="footer-col-title">Products</div><a class="footer-link" onclick="showPage('revexplore')">RevExplore</a><a class="footer-link" onclick="showPage('revenue')">AI Revenue Recovery</a><a class="footer-link" onclick="showPage('intake')">AI Intake System</a></div><div><div class="footer-col-title">Company</div><a class="footer-link">About</a><a class="footer-link">Security</a><a class="footer-link">Contact</a></div><div><div class="footer-col-title">Legal</div><a class="footer-link">Privacy Policy</a><a class="footer-link">Terms of Service</a><a class="footer-link">BAA Available</a></div></div><div class="footer-bottom"><div class="footer-copy">© 2026 REVCO. All rights reserved.</div><div class="footer-legal"><a>Privacy</a><a>Terms</a><a>Security</a></div></div></div></footer>
 </div>
 
 <!-- Status Assistant -->
@@ -920,10 +1119,10 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
       <button class="back-btn" onclick="showPage('home')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg> All Products</button>
       <div class="product-hero-tag" style="background:rgba(107,47,138,0.12);border-color:rgba(107,47,138,0.25);color:#c580f0;">
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Client Communication Module — Coming Soon
+        Client Communication Module: Coming Soon
       </div>
-      <h1 class="product-hero-h1">Client asks for an update.<br>They get one — immediately.</h1>
-      <p class="product-hero-sub">The AI Client Status Assistant handles routine case-status inquiries using attorney-approved response guardrails. Hearing dates, next steps, and office contact — without interrupting the attorney.</p>
+      <h1 class="product-hero-h1">Client asks for an update.<br>They get one immediately.</h1>
+      <p class="product-hero-sub">The AI Client Status Assistant handles routine case-status inquiries using attorney-approved response guardrails. Hearing dates, next steps, and office contact without interrupting the attorney.</p>
       <div class="hero-actions">
         <button class="btn-primary">Join the Waitlist</button>
         <button class="btn-ghost" onclick="openModal('status')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch how it works</button>
@@ -932,24 +1131,24 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
   </div>
   <div class="product-video-section">
     <div class="product-video-inner">
-      <div style="text-align:center;margin-bottom:32px;"><div class="section-eyebrow" style="color:var(--blue-300);">Process Walkthrough</div><div style="font-size:22px;font-weight:700;color:#fff;letter-spacing:-0.01em;">From client question to compliant response — in seconds.</div></div>
+      <div style="text-align:center;margin-bottom:32px;"><div class="section-eyebrow" style="color:var(--blue-300);">Process Walkthrough</div><div style="font-size:22px;font-weight:700;color:#fff;letter-spacing:-0.01em;">From client question to compliant response in seconds.</div></div>
       <div class="video-wrapper" id="inline-video-status"></div>
     </div>
   </div>
   <section style="background:var(--gray-0);"><div class="section-inner">
     <div class="section-eyebrow">Core Capabilities</div>
-    <h2 class="section-h2">Routine questions answered. Attorneys kept in control.</h2>
+    <h2 class="section-h2">Routine status answers inside attorney-approved boundaries.</h2>
     <div class="feature-grid">
       <div class="feature-card"><div class="feature-card-icon" style="background:var(--status-privilege-bg);color:var(--status-privilege);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><div class="feature-card-title">Instant Status Responses</div><div class="feature-card-body">Clients ask about their case via SMS or web chat. The system queries the case record and responds with relevant scheduling, next-step, and contact information.</div></div>
       <div class="feature-card"><div class="feature-card-icon" style="background:var(--status-privilege-bg);color:var(--status-privilege);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="feature-card-title">Attorney Guardrail System</div><div class="feature-card-body">The attorney defines what the system can and cannot say. Legal advice, strategy, and settlement terms are blocked. Hearing dates and office contact are allowed.</div></div>
       <div class="feature-card"><div class="feature-card-icon" style="background:var(--status-privilege-bg);color:var(--status-privilege);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4"/></svg></div><div class="feature-card-title">No Attorney Interruption</div><div class="feature-card-body">Routine status questions are resolved without pulling the attorney off a call, out of a deposition, or away from a filing deadline.</div></div>
       <div class="feature-card"><div class="feature-card-icon" style="background:var(--status-privilege-bg);color:var(--status-privilege);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><div class="feature-card-title">Full Conversation Log</div><div class="feature-card-body">Every client interaction is logged with timestamp, content, and response source. The attorney can review any exchange at any time.</div></div>
-      <div class="feature-card"><div class="feature-card-icon" style="background:var(--status-privilege-bg);color:var(--status-privilege);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div class="feature-card-title">Escalation Routing</div><div class="feature-card-body">Questions outside the approved guardrail are escalated to staff — flagged, categorized, and queued. Nothing falls through the cracks.</div></div>
+      <div class="feature-card"><div class="feature-card-icon" style="background:var(--status-privilege-bg);color:var(--status-privilege);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div class="feature-card-title">Escalation Routing</div><div class="feature-card-body">Questions outside the approved guardrail are escalated to staff, then flagged, categorized, and queued. Nothing falls through the cracks.</div></div>
       <div class="feature-card"><div class="feature-card-icon" style="background:var(--status-privilege-bg);color:var(--status-privilege);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div class="feature-card-title">Client Satisfaction Tracking</div><div class="feature-card-body">Response satisfaction is tracked per client. The attorney is notified of any client who responds negatively so they can follow up directly.</div></div>
     </div>
   </div></section>
-  <section class="cta-section"><div class="cta-inner"><div class="section-eyebrow" style="color:var(--blue-300);text-align:center;">Coming Soon</div><h2 class="cta-h2">Join the waitlist for early access.</h2><p class="cta-sub">AI Client Status Assistant is in development. Design partner spots are available for firms who want to shape the product.</p><div class="cta-actions"><button class="btn-primary">Join the Waitlist</button><button class="btn-ghost">Schedule a Call</button></div></div></section>
-  <footer class="footer"><div class="footer-inner"><div class="footer-grid"><div class="footer-brand"><img src="assets/logo-horizontal.png" alt="REVCO" height="28" style="filter:brightness(0) invert(1) opacity(0.7);"><p>AI infrastructure for family law firms.</p></div><div><div class="footer-col-title">Products</div><a class="footer-link" onclick="showPage('lexidraft')">LexiDraft</a><a class="footer-link" onclick="showPage('revenue')">AI Revenue Recovery</a><a class="footer-link" onclick="showPage('intake')">AI Intake System</a></div><div><div class="footer-col-title">Company</div><a class="footer-link">About</a><a class="footer-link">Security</a><a class="footer-link">Contact</a></div><div><div class="footer-col-title">Legal</div><a class="footer-link">Privacy Policy</a><a class="footer-link">Terms of Service</a></div></div><div class="footer-bottom"><div class="footer-copy">© 2026 REVCO. All rights reserved.</div><div class="footer-legal"><a>Privacy</a><a>Terms</a><a>Security</a></div></div></div></footer>
+  <section class="cta-section"><div class="cta-inner"><div class="section-eyebrow" style="color:var(--blue-300);text-align:center;">Coming Soon</div><h2 class="cta-h2">Shape the client-status workflow before launch.</h2><p class="cta-sub">AI Client Status Assistant is in development. Design partner firms can help define guardrails, escalation rules, and response categories.</p><div class="cta-actions"><button class="btn-primary">Join the Waitlist</button><button class="btn-ghost">Schedule a Call</button></div></div></section>
+  <footer class="footer"><div class="footer-inner"><div class="footer-grid"><div class="footer-brand"><img src="assets/logo-horizontal-240.png" alt="REVCO" width="93" height="28" style="filter:brightness(0) invert(1) opacity(0.7);"><p>AI infrastructure for family law firms.</p></div><div><div class="footer-col-title">Products</div><a class="footer-link" onclick="showPage('revexplore')">RevExplore</a><a class="footer-link" onclick="showPage('revenue')">AI Revenue Recovery</a><a class="footer-link" onclick="showPage('intake')">AI Intake System</a></div><div><div class="footer-col-title">Company</div><a class="footer-link">About</a><a class="footer-link">Security</a><a class="footer-link">Contact</a></div><div><div class="footer-col-title">Legal</div><a class="footer-link">Privacy Policy</a><a class="footer-link">Terms of Service</a></div></div><div class="footer-bottom"><div class="footer-copy">© 2026 REVCO. All rights reserved.</div><div class="footer-legal"><a>Privacy</a><a>Terms</a><a>Security</a></div></div></div></footer>
 </div>
 
 <!-- Case Intelligence -->
@@ -960,10 +1159,10 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
       <button class="back-btn" onclick="showPage('home')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg> All Products</button>
       <div class="product-hero-tag" style="background:rgba(18,160,156,0.12);border-color:rgba(18,160,156,0.25);color:#40d4d0;">
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/></svg>
-        Matter Intelligence Module — Coming Soon
+        Matter Intelligence Module: Coming Soon
       </div>
       <h1 class="product-hero-h1">Case files, unstructured.<br>Matter briefs, ready to review.</h1>
-      <p class="product-hero-sub">Case Intelligence Assistant reads the full matter file — pleadings, discovery, correspondence, notes — and returns a structured timeline, key-event summary, and open-items flag list. Prepared for the attorney. Reviewed by the attorney.</p>
+      <p class="product-hero-sub">Case Intelligence Assistant reads the full matter file, including pleadings, discovery, correspondence, and notes, then returns a structured timeline, key-event summary, and open-items flag list. Prepared for the attorney. Reviewed by the attorney.</p>
       <div class="hero-actions">
         <button class="btn-primary">Join the Waitlist</button>
         <button class="btn-ghost" onclick="openModal('intelligence')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch how it works</button>
@@ -972,33 +1171,34 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
   </div>
   <div class="product-video-section">
     <div class="product-video-inner">
-      <div style="text-align:center;margin-bottom:32px;"><div class="section-eyebrow" style="color:var(--blue-300);">Process Walkthrough</div><div style="font-size:22px;font-weight:700;color:#fff;letter-spacing:-0.01em;">From raw case file to structured matter intelligence — attorney-reviewed.</div></div>
+      <div style="text-align:center;margin-bottom:32px;"><div class="section-eyebrow" style="color:var(--blue-300);">Process Walkthrough</div><div style="font-size:22px;font-weight:700;color:#fff;letter-spacing:-0.01em;">From raw case file to structured matter intelligence, attorney-reviewed.</div></div>
       <div class="video-wrapper" id="inline-video-intelligence"></div>
     </div>
   </div>
   <section style="background:var(--gray-0);"><div class="section-inner">
     <div class="section-eyebrow">Core Capabilities</div>
-    <h2 class="section-h2">Structured matter intelligence.<br>Every detail, organized for review.</h2>
+    <h2 class="section-h2">Matter files organized into reviewable attorney briefs.</h2>
     <div class="feature-grid">
-      <div class="feature-card"><div class="feature-card-icon" style="background:rgba(18,160,156,0.1);color:#12a09c;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><div class="feature-card-title">Chronological Matter Timeline</div><div class="feature-card-body">Every key event extracted from the case file and ordered chronologically — filings, hearings, discovery, orders, correspondence. Sourced from the actual documents.</div></div>
-      <div class="feature-card"><div class="feature-card-icon" style="background:rgba(18,160,156,0.1);color:#12a09c;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div><div class="feature-card-title">Matter Summary Brief</div><div class="feature-card-body">A structured one-page summary of the matter — parties, key facts, financial issues, custody status, and procedural posture — prepared for attorney review before hearings or consultations.</div></div>
-      <div class="feature-card"><div class="feature-card-icon" style="background:rgba(18,160,156,0.1);color:#12a09c;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><div class="feature-card-title">Open Items Flag List</div><div class="feature-card-body">Missing documents, unresolved discovery responses, unsigned orders, and outstanding deadlines are surfaced automatically — with the source document identified.</div></div>
+      <div class="feature-card"><div class="feature-card-icon" style="background:rgba(18,160,156,0.1);color:#12a09c;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div><div class="feature-card-title">Chronological Matter Timeline</div><div class="feature-card-body">Every key event is extracted from the case file and ordered chronologically: filings, hearings, discovery, orders, and correspondence. Sources remain tied to the actual documents.</div></div>
+      <div class="feature-card"><div class="feature-card-icon" style="background:rgba(18,160,156,0.1);color:#12a09c;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div><div class="feature-card-title">Matter Summary Brief</div><div class="feature-card-body">A structured one-page summary covers parties, key facts, financial issues, custody status, and procedural posture before attorney review for hearings or consultations.</div></div>
+      <div class="feature-card"><div class="feature-card-icon" style="background:rgba(18,160,156,0.1);color:#12a09c;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><div class="feature-card-title">Open Items Flag List</div><div class="feature-card-body">Missing documents, unresolved discovery responses, unsigned orders, and outstanding deadlines are surfaced automatically with the source document identified.</div></div>
       <div class="feature-card"><div class="feature-card-icon" style="background:rgba(18,160,156,0.1);color:#12a09c;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div class="feature-card-title">Financial Disclosure Analysis</div><div class="feature-card-body">Income, asset, and debt disclosures are extracted and compared across filings. Discrepancies between sworn inventories are flagged for attorney attention.</div></div>
-      <div class="feature-card"><div class="feature-card-icon" style="background:rgba(18,160,156,0.1);color:#12a09c;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4"/></svg></div><div class="feature-card-title">Attorney Review Controls</div><div class="feature-card-body">Every output is presented as prepared content — not an authoritative record. Attorneys flag, correct, and annotate before the brief is treated as final.</div></div>
+      <div class="feature-card"><div class="feature-card-icon" style="background:rgba(18,160,156,0.1);color:#12a09c;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4"/></svg></div><div class="feature-card-title">Attorney Review Controls</div><div class="feature-card-body">Every output is presented as prepared content, not an authoritative record. Attorneys flag, correct, and annotate before the brief is treated as final.</div></div>
       <div class="feature-card"><div class="feature-card-icon" style="background:rgba(18,160,156,0.1);color:#12a09c;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="feature-card-title">Source Attribution</div><div class="feature-card-body">Every fact in the matter brief is linked to its source document. The attorney can trace any claim back to the original filing, deposition, or correspondence with a single click.</div></div>
     </div>
   </div></section>
   <section class="cta-section"><div class="cta-inner"><div class="section-eyebrow" style="color:var(--blue-300);text-align:center;">Coming Soon</div><h2 class="cta-h2">Every matter, structured and ready to review.</h2><p class="cta-sub">Case Intelligence Assistant is in development. If you're handling complex family law matters with substantial discovery, we want to hear from you.</p><div class="cta-actions"><button class="btn-primary">Join the Waitlist</button><button class="btn-ghost">Schedule a Call</button></div></div></section>
-  <footer class="footer"><div class="footer-inner"><div class="footer-grid"><div class="footer-brand"><img src="assets/logo-horizontal.png" alt="REVCO" height="28" style="filter:brightness(0) invert(1) opacity(0.7);"><p>AI infrastructure for family law firms.</p></div><div><div class="footer-col-title">Products</div><a class="footer-link" onclick="showPage('lexidraft')">LexiDraft</a><a class="footer-link" onclick="showPage('revenue')">AI Revenue Recovery</a><a class="footer-link" onclick="showPage('intake')">AI Intake System</a></div><div><div class="footer-col-title">Company</div><a class="footer-link">About</a><a class="footer-link">Security</a><a class="footer-link">Contact</a></div><div><div class="footer-col-title">Legal</div><a class="footer-link">Privacy Policy</a><a class="footer-link">Terms of Service</a></div></div><div class="footer-bottom"><div class="footer-copy">© 2026 REVCO. All rights reserved.</div><div class="footer-legal"><a>Privacy</a><a>Terms</a><a>Security</a></div></div></div></footer>
+  <footer class="footer"><div class="footer-inner"><div class="footer-grid"><div class="footer-brand"><img src="assets/logo-horizontal-240.png" alt="REVCO" width="93" height="28" style="filter:brightness(0) invert(1) opacity(0.7);"><p>AI infrastructure for family law firms.</p></div><div><div class="footer-col-title">Products</div><a class="footer-link" onclick="showPage('revexplore')">RevExplore</a><a class="footer-link" onclick="showPage('revenue')">AI Revenue Recovery</a><a class="footer-link" onclick="showPage('intake')">AI Intake System</a></div><div><div class="footer-col-title">Company</div><a class="footer-link">About</a><a class="footer-link">Security</a><a class="footer-link">Contact</a></div><div><div class="footer-col-title">Legal</div><a class="footer-link">Privacy Policy</a><a class="footer-link">Terms of Service</a></div></div><div class="footer-bottom"><div class="footer-copy">© 2026 REVCO. All rights reserved.</div><div class="footer-legal"><a>Privacy</a><a>Terms</a><a>Security</a></div></div></div></footer>
 </div>
+</main>
 
 <!-- ═══════════ VIDEO MODAL ═══════════ -->
-<div class="modal-overlay" id="video-modal" onclick="handleModalClick(event)">
+<div class="modal-overlay" id="video-modal" onclick="handleModalClick(event)" role="dialog" aria-modal="true" aria-labelledby="modal-title">
   <div class="modal-box" onclick="event.stopPropagation()">
     <div class="modal-header">
       <div style="width:8px;height:8px;border-radius:50%;background:var(--blue-400);"></div>
       <div class="modal-title" id="modal-title">Process Walkthrough</div>
-      <button class="modal-close" onclick="closeModal()">
+      <button class="modal-close" onclick="closeModal()" aria-label="Close walkthrough">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
@@ -1006,28 +1206,329 @@ body { font-family: var(--font-sans); background: var(--gray-0); color: var(--fg
   </div>
 </div>
 
-<!-- ═══════════ REACT + ANIMATION SCRIPTS ═══════════ -->
-<script type="text/babel" src="animations.jsx"></script>
-<script type="text/babel" src="product-animations.jsx"></script>
+<div class="modal-overlay" id="content-modal" onclick="handleContentModalClick(event)" role="dialog" aria-modal="true" aria-labelledby="content-modal-title" aria-hidden="true">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div style="width:8px;height:8px;border-radius:50%;background:var(--blue-400);"></div>
+      <div class="modal-title" id="content-modal-title">REVCO</div>
+      <button class="modal-close" onclick="closeContentModal()" aria-label="Close information panel">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="content-modal-body" id="content-modal-body"></div>
+  </div>
+</div>
 
-<script type="text/babel">
-const { useState, useEffect, useRef } = React;
-
+<script>
 // ── Mount all inline videos when pages are shown ──
 const INLINE_VIDEOS = {
-  lexidraft:    { component: 'LexiDraftAnimation',        title: 'LexiDraft — Discovery Production Walkthrough' },
-  revenue:      { component: 'RevenueRecoveryAnimation',  title: 'AI Revenue Recovery — Collection Process Walkthrough' },
-  intake:       { component: 'IntakeSystemAnimation',     title: 'AI Intake System — Lead Capture Walkthrough' },
-  status:       { component: 'ClientStatusAnimation',     title: 'AI Client Status Assistant — Response Process Walkthrough' },
-  intelligence: { component: 'CaseIntelligenceAnimation', title: 'Case Intelligence Assistant — Matter Brief Walkthrough' },
+  revexplore:    { component: 'RevExploreAnimation',        title: 'RevExplore: Discovery Production Walkthrough' },
+  revenue:      { component: 'RevenueRecoveryAnimation',  title: 'AI Revenue Recovery: Collection Process Walkthrough' },
+  intake:       { component: 'IntakeSystemAnimation',     title: 'AI Intake System: Lead Capture Walkthrough' },
+  status:       { component: 'ClientStatusAnimation',     title: 'AI Client Status Assistant: Response Process Walkthrough' },
+  intelligence: { component: 'CaseIntelligenceAnimation', title: 'Case Intelligence Assistant: Matter Brief Walkthrough' },
 };
 
 let mountedInline = {};
 let mountedModal = null;
+let lastFocusedBeforeModal = null;
+const CONTACT_EMAIL = 'hello@revcoautomations.com';
+const ANIMATION_SCRIPTS = [
+  'vendor/react.production.min.js',
+  'vendor/react-dom.production.min.js',
+  'animations.js',
+  'product-animations.js',
+];
+let animationScriptsReady = null;
 
-function mountAnimation(containerId, ComponentName) {
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    if (document.querySelector(`script[src="${src}"]`)) {
+      resolve();
+      return;
+    }
+    const script = document.createElement('script');
+    script.src = src;
+    script.onload = resolve;
+    script.onerror = () => reject(new Error(`Failed to load ${src}`));
+    document.body.appendChild(script);
+  });
+}
+
+function ensureAnimationScripts() {
+  if (!animationScriptsReady) {
+    animationScriptsReady = ANIMATION_SCRIPTS.reduce((chain, src) => chain.then(() => loadScript(src)), Promise.resolve());
+  }
+  return animationScriptsReady;
+}
+
+const LEAD_INTENTS = {
+  access: {
+    kicker: 'Request access',
+    title: 'Talk with REVCO about your firm workflow.',
+    body: 'Send a short note with your firm name, practice area, and which workflow you want to evaluate first. We will follow up with the right discovery, intake, collections, or communication path.',
+    subject: 'REVCO access request',
+  },
+  demo: {
+    kicker: 'Book a demo',
+    title: 'Schedule a focused product walkthrough.',
+    body: 'Use this for a live walkthrough of RevExplore or the broader REVCO product suite. Include the workflow you want to see and the size of the team that would use it.',
+    subject: 'REVCO demo request',
+  },
+  partner: {
+    kicker: 'Design partner program',
+    title: 'Apply as a design partner.',
+    body: 'Design partners help shape the product around real firm workflows. Include the matter types you handle, your current discovery process, and the operational pain you want solved first.',
+    subject: 'REVCO design partner application',
+  },
+  waitlist: {
+    kicker: 'Early access',
+    title: 'Join the early access list.',
+    body: 'Tell us which coming-soon workflow you care about most: client status, case intelligence, or another operational gap inside the firm.',
+    subject: 'REVCO early access request',
+  },
+  signin: {
+    kicker: 'Partner sign in',
+    title: 'Partner access is provisioned during onboarding.',
+    body: 'REVCO workspaces are created for approved firm users. If your firm already has access, contact your REVCO admin or email us and we will route the request.',
+    subject: 'REVCO sign-in help',
+  },
+};
+
+const INFO_CONTENT = {
+  about: {
+    kicker: 'Company',
+    title: 'REVCO builds legal-AI infrastructure for family law firms.',
+    body: [
+      'REVCO focuses on operational workflows where legal teams lose time: discovery production, intake, receivables, client communication, and matter intelligence.',
+      'The product posture is attorney-supervised. The system prepares, structures, and routes work. Attorneys and firm staff keep control of legal judgment, client-facing decisions, and final output.',
+    ],
+    bullets: ['Family-law focused workflow design', 'Review gates before output leaves the firm', 'Source-linked records and audit trails'],
+  },
+  security: {
+    kicker: 'Security',
+    title: 'Designed for confidential legal workflows.',
+    body: [
+      'REVCO workflows are designed around firm-controlled access, matter-level records, source traceability, and review gates. Security review should happen before production deployment.',
+      'For firms evaluating REVCO, the right next step is a security and workflow review covering data handling, user roles, audit requirements, and any required business associate or vendor documentation.',
+    ],
+    bullets: ['Role-aware access and matter boundaries', 'Attorney review before generated legal output is treated as final', 'Audit-friendly workflow events and source references'],
+  },
+  contact: {
+    kicker: 'Contact',
+    title: 'Start with the workflow you want fixed.',
+    body: [
+      'The fastest way to begin is to name the operational bottleneck: discovery production, after-hours intake, receivables, routine status updates, or matter review.',
+    ],
+    bullets: ['Email: hello@revcoautomations.com', 'Best fit: family law firms evaluating structured AI workflows', 'Include current process, case volume, and the first workflow you want to test'],
+  },
+  blog: {
+    kicker: 'Notes',
+    title: 'REVCO notes are not public yet.',
+    body: [
+      'The public writing section is planned for workflow explainers, deployment notes, and legal-operations observations. Until then, the product walkthroughs are the best overview.',
+    ],
+    bullets: ['RevExplore discovery production', 'Attorney-supervised automation', 'Client communication guardrails'],
+  },
+  privacy: {
+    kicker: 'Legal',
+    title: 'Privacy policy placeholder for firm review.',
+    body: [
+      'A finalized privacy policy should be reviewed before broad public launch. The current site now makes this status explicit instead of presenting a dead link.',
+      'For firm evaluations, data handling should be discussed as part of a security and deployment review.',
+    ],
+    bullets: ['Data handling review before deployment', 'Matter confidentiality requirements', 'Vendor documentation available during evaluation'],
+  },
+  terms: {
+    kicker: 'Legal',
+    title: 'Terms are provided during evaluation.',
+    body: [
+      'Commercial terms depend on product scope, deployment model, and firm requirements. Firms should review terms alongside the security posture and workflow design.',
+    ],
+    bullets: ['Scope-specific deployment terms', 'Firm user access and responsibilities', 'Review and approval responsibilities remain with the firm'],
+  },
+  baa: {
+    kicker: 'Vendor documentation',
+    title: 'BAA and vendor documentation can be reviewed when needed.',
+    body: [
+      'Some firms may require additional vendor documentation depending on data types, client requirements, and internal policy. REVCO should handle that review directly with the firm.',
+    ],
+    bullets: ['Available during security review when applicable', 'Deployment-specific documentation', 'Firm policy alignment before production use'],
+  },
+};
+
+function enhanceInteractiveCards() {
+  document.querySelectorAll('.product-card[onclick]').forEach(card => {
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.click();
+      }
+    });
+  });
+}
+
+function getLeadIntentFromLabel(label) {
+  const text = label.toLowerCase();
+  if (text.includes('book') || text.includes('schedule')) return 'demo';
+  if (text.includes('apply')) return 'partner';
+  if (text.includes('waitlist')) return 'waitlist';
+  if (text.includes('sign in')) return 'signin';
+  return 'access';
+}
+
+function openLeadModal(intent = 'access') {
+  const cfg = LEAD_INTENTS[intent] || LEAD_INTENTS.access;
+  const body = [
+    `Workflow context: ${cfg.title}`,
+    '',
+    'Firm:',
+    'Primary workflow:',
+    'Current process or pain:',
+    'Best contact:',
+  ].join('\n');
+  openContentModal({
+    title: cfg.title,
+    kicker: cfg.kicker,
+    html: `
+      <p>${cfg.body}</p>
+      <ul>
+        <li>Primary contact: <strong>${CONTACT_EMAIL}</strong></li>
+        <li>Recommended detail: firm size, practice focus, and workflow priority.</li>
+        <li>For security review, ask for the deployment and vendor documentation package.</li>
+      </ul>
+      <div class="modal-actions">
+        <a class="btn-primary" href="mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(cfg.subject)}&body=${encodeURIComponent(body)}">Email REVCO</a>
+        <button class="btn-ghost" onclick="copyContactEmail()">Copy email</button>
+      </div>
+      <div class="copy-status" id="copy-status" aria-live="polite"></div>
+    `,
+  });
+}
+
+function openInfoModal(key) {
+  const cfg = INFO_CONTENT[key] || INFO_CONTENT.about;
+  openContentModal({
+    title: cfg.title,
+    kicker: cfg.kicker,
+    html: `
+      ${cfg.body.map(p => `<p>${p}</p>`).join('')}
+      <ul>${cfg.bullets.map(item => `<li>${item}</li>`).join('')}</ul>
+      <div class="modal-actions">
+        <button class="btn-primary" onclick="openLeadModal('${key === 'contact' ? 'access' : 'demo'}')">Contact REVCO</button>
+        <button class="btn-ghost" onclick="closeContentModal()">Close</button>
+      </div>
+    `,
+  });
+}
+
+function openContentModal({ title, kicker, html }) {
+  lastFocusedBeforeModal = document.activeElement;
+  const modal = document.getElementById('content-modal');
+  document.getElementById('content-modal-title').textContent = title;
+  document.getElementById('content-modal-body').innerHTML = `
+    <div class="content-modal-kicker">${kicker}</div>
+    <h2>${title}</h2>
+    ${html}
+  `;
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  modal.querySelector('.modal-close').focus();
+}
+
+function closeContentModal() {
+  const modal = document.getElementById('content-modal');
+  if (!modal.classList.contains('open')) return;
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+  document.getElementById('content-modal-body').innerHTML = '';
+  document.body.style.overflow = '';
+  if (lastFocusedBeforeModal && typeof lastFocusedBeforeModal.focus === 'function') {
+    lastFocusedBeforeModal.focus();
+  }
+  lastFocusedBeforeModal = null;
+}
+
+function handleContentModalClick(e) {
+  if (e.target === e.currentTarget) closeContentModal();
+}
+
+async function copyContactEmail() {
+  const status = document.getElementById('copy-status');
+  try {
+    await navigator.clipboard.writeText(CONTACT_EMAIL);
+    if (status) status.textContent = 'Email copied.';
+  } catch (err) {
+    if (status) status.textContent = CONTACT_EMAIL;
+  }
+}
+
+function enhanceLeadButtons() {
+  const leadLabels = ['Request Access', 'Book a Demo', 'Apply as Design Partner', 'Schedule a Call', 'Join the Waitlist', 'Sign In'];
+  document.querySelectorAll('button').forEach(button => {
+    const label = button.textContent.trim().replace(/\s+/g, ' ');
+    if (!leadLabels.includes(label) || button.dataset.leadBound === 'true') return;
+    button.dataset.leadBound = 'true';
+    button.addEventListener('click', () => openLeadModal(getLeadIntentFromLabel(label)));
+  });
+}
+
+function enhanceFooterLinks() {
+  const infoMap = {
+    About: 'about',
+    Security: 'security',
+    Blog: 'blog',
+    Contact: 'contact',
+    'Privacy Policy': 'privacy',
+    Privacy: 'privacy',
+    'Terms of Service': 'terms',
+    Terms: 'terms',
+    'BAA Available': 'baa',
+  };
+  document.querySelectorAll('.footer-link, .footer-legal a').forEach(link => {
+    const label = link.textContent.trim();
+    if (link.getAttribute('onclick') || link.dataset.footerBound === 'true') {
+      link.setAttribute('role', 'button');
+      link.setAttribute('tabindex', '0');
+    }
+    if (!infoMap[label] || link.dataset.footerBound === 'true') return;
+    link.dataset.footerBound = 'true';
+    link.setAttribute('role', 'button');
+    link.setAttribute('tabindex', '0');
+    link.addEventListener('click', () => openInfoModal(infoMap[label]));
+    link.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openInfoModal(infoMap[label]);
+      }
+    });
+  });
+}
+
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobile-menu');
+  const toggle = document.querySelector('.mobile-menu-toggle');
+  const isOpen = !menu.classList.contains('open');
+  menu.classList.toggle('open', isOpen);
+  menu.setAttribute('aria-hidden', String(!isOpen));
+  toggle.setAttribute('aria-expanded', String(isOpen));
+}
+
+function closeMobileMenu() {
+  const menu = document.getElementById('mobile-menu');
+  const toggle = document.querySelector('.mobile-menu-toggle');
+  menu.classList.remove('open');
+  menu.setAttribute('aria-hidden', 'true');
+  toggle.setAttribute('aria-expanded', 'false');
+}
+
+async function mountAnimation(containerId, ComponentName) {
   const container = document.getElementById(containerId);
   if (!container || mountedInline[containerId]) return;
+  await ensureAnimationScripts();
   const Comp = window[ComponentName];
   if (!Comp) return;
   mountedInline[containerId] = true;
@@ -1046,11 +1547,14 @@ function unmountAnimation(containerId) {
 }
 
 // Modal state
-function openModal(product) {
+async function openModal(product) {
   const cfg = INLINE_VIDEOS[product];
   if (!cfg) return;
+  lastFocusedBeforeModal = document.activeElement;
   document.getElementById('modal-title').textContent = cfg.title;
-  document.getElementById('video-modal').classList.add('open');
+  const modal = document.getElementById('video-modal');
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
 
   // Mount animation into modal body
@@ -1059,22 +1563,31 @@ function openModal(product) {
   const div = document.createElement('div');
   div.id = 'modal-anim-root';
   body.appendChild(div);
+  await ensureAnimationScripts();
   const Comp = window[cfg.component];
   if (Comp) {
     const root = ReactDOM.createRoot(div);
     root.render(React.createElement(Comp));
     mountedModal = root;
   }
+  document.querySelector('.modal-close').focus();
 }
 
 function closeModal() {
-  document.getElementById('video-modal').classList.remove('open');
+  const modal = document.getElementById('video-modal');
+  if (!modal.classList.contains('open')) return;
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
   if (mountedModal) {
     try { mountedModal.unmount(); } catch(e) {}
     mountedModal = null;
   }
   document.getElementById('modal-body').innerHTML = '';
+  if (lastFocusedBeforeModal && typeof lastFocusedBeforeModal.focus === 'function') {
+    lastFocusedBeforeModal.focus();
+  }
+  lastFocusedBeforeModal = null;
 }
 
 function handleModalClick(e) {
@@ -1082,20 +1595,27 @@ function handleModalClick(e) {
 }
 
 // Keyboard close
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closeModal();
+    closeContentModal();
+    closeMobileMenu();
+  }
+});
 
 // ── Page navigation ──
 function showPage(page) {
+  closeMobileMenu();
   document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
   document.getElementById('page-' + page).classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'instant' });
+  window.scrollTo({ top: 0, behavior: 'auto' });
 
   // Update nav active state
   document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
 
   // Mount inline video for product pages
   if (page !== 'home') {
-    setTimeout(() => {
+    setTimeout(async () => {
       const containerId = 'inline-video-' + page;
       const cfg = INLINE_VIDEOS[page];
       if (cfg) mountAnimation(containerId, cfg.component);
@@ -1117,8 +1637,11 @@ function triggerReveals() {
 
 // Initial trigger
 window.addEventListener('load', () => {
+  enhanceInteractiveCards();
+  enhanceLeadButtons();
+  enhanceFooterLinks();
+  document.getElementById('video-modal').setAttribute('aria-hidden', 'true');
   triggerReveals();
-  if (typeof lucide !== 'undefined') lucide.createIcons();
 });
 </script>
 
